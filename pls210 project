@@ -1,0 +1,1762 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#081426">
+
+  <title>Remembering the First Presidents | PLS 210</title>
+
+  <style>
+    :root {
+      --navy: #081426;
+      --navy-2: #0c1c33;
+      --navy-3: #122642;
+      --card: #142945;
+      --white: #f7faff;
+      --muted: #b5c5da;
+      --blue: #48a6ff;
+      --blue-soft: #a9d8ff;
+      --line: rgba(184, 209, 240, 0.18);
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.23);
+      --sans: Inter, "Segoe UI", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+    }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--blue-soft);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: var(--white);
+    }
+
+    button {
+      font: inherit;
+    }
+
+    /* PRESENTATION */
+
+    .deck {
+      height: 100vh;
+      height: 100svh;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+    }
+
+    .deck::-webkit-scrollbar {
+      display: none;
+    }
+
+    .slide {
+      min-height: 100vh;
+      min-height: 100svh;
+      scroll-snap-align: start;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 72px 72px 80px;
+      overflow: hidden;
+      background:
+        radial-gradient(
+          circle at 85% 15%,
+          rgba(72, 166, 255, 0.10),
+          transparent 38%
+        ),
+        linear-gradient(145deg, var(--navy), var(--navy-2));
+    }
+
+    .slide:nth-child(even) {
+      background:
+        radial-gradient(
+          circle at 10% 80%,
+          rgba(72, 166, 255, 0.10),
+          transparent 38%
+        ),
+        var(--navy-2);
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(
+        90deg,
+        var(--blue),
+        rgba(72, 166, 255, 0)
+      );
+    }
+
+    .container {
+      width: min(100%, 1120px);
+      position: relative;
+      z-index: 1;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .center .intro,
+    .center .description {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      color: var(--blue-soft);
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: 0.19em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 2px;
+      background: var(--blue);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 1000px;
+      margin-bottom: 25px;
+      font-size: clamp(38px, 5.7vw, 76px);
+      line-height: 1.06;
+      letter-spacing: -0.045em;
+    }
+
+    h2 {
+      margin-bottom: 24px;
+      font-size: clamp(29px, 4.1vw, 51px);
+      line-height: 1.12;
+      letter-spacing: -0.035em;
+    }
+
+    h3 {
+      font-size: 19px;
+      line-height: 1.3;
+    }
+
+    .accent {
+      color: var(--blue);
+    }
+
+    .intro {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: clamp(18px, 2.1vw, 25px);
+      line-height: 1.55;
+    }
+
+    .description {
+      max-width: 920px;
+      color: var(--muted);
+      font-size: clamp(16px, 1.7vw, 21px);
+      line-height: 1.6;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .label {
+      display: inline-block;
+      padding: 9px 14px;
+      border: 1px solid rgba(72, 166, 255, 0.35);
+      border-radius: 999px;
+      background: rgba(72, 166, 255, 0.10);
+      color: var(--blue-soft);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    /* LAYOUT */
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 42px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .cards.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 26px;
+      background: rgba(20, 41, 69, 0.82);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+      color: var(--blue-soft);
+    }
+
+    .card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    .source {
+      margin-top: 14px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .statement {
+      padding: 30px 35px;
+      margin-top: 28px;
+      border-left: 4px solid var(--blue);
+      border-radius: 0 16px 16px 0;
+      background: rgba(72, 166, 255, 0.08);
+      color: var(--white);
+      font-size: clamp(19px, 2.2vw, 27px);
+      line-height: 1.5;
+    }
+
+    /* PHOTO GALLERY */
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    .gallery.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .photo {
+      margin: 0;
+      padding: 8px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .photo img {
+      display: block;
+      width: 100%;
+      height: clamp(170px, 31vh, 300px);
+      object-fit: cover;
+      border-radius: 10px;
+      background: #20344f;
+    }
+
+    .photo.contain img {
+      object-fit: contain;
+      padding: 10px;
+    }
+
+    .photo figcaption {
+      padding: 12px 6px 5px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .photo figcaption strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--white);
+      font-size: 14px;
+    }
+
+    .photo-number {
+      color: var(--blue);
+      font-weight: 800;
+      margin-right: 6px;
+    }
+
+    .gallery-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* RESEARCH QUESTION */
+
+    .research-question {
+      max-width: 1000px;
+      margin: 25px auto;
+      font-size: clamp(26px, 3.7vw, 48px);
+      font-weight: 650;
+      line-height: 1.35;
+      letter-spacing: -0.025em;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .chip {
+      padding: 10px 15px;
+      background: rgba(72, 166, 255, 0.10);
+      border: 1px solid rgba(72, 166, 255, 0.28);
+      border-radius: 999px;
+      color: var(--blue-soft);
+      font-size: 14px;
+    }
+
+    /* TIMELINE */
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .event {
+      position: relative;
+      padding: 25px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .event .year {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--blue);
+      font-size: 31px;
+      font-weight: 800;
+    }
+
+    .event p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* CONCEPTS */
+
+    .concepts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+      margin-top: 28px;
+    }
+
+    .concept {
+      display: flex;
+      gap: 16px;
+      padding: 22px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .concept-number {
+      color: var(--blue);
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .concept h3 {
+      margin-bottom: 7px;
+      color: var(--white);
+    }
+
+    .concept p {
+      margin-bottom: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* NUMBERED TEXT */
+
+    .points {
+      display: grid;
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .point {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 20px 24px;
+      background: rgba(20, 41, 69, 0.75);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+    }
+
+    .point .number {
+      flex-shrink: 0;
+      color: var(--blue);
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .point p {
+      margin: 0;
+      color: var(--white);
+      font-size: clamp(16px, 1.8vw, 21px);
+      line-height: 1.5;
+    }
+
+    /* REFERENCES */
+
+    .references {
+      display: grid;
+      gap: 13px;
+      margin-top: 25px;
+    }
+
+    .references p {
+      margin: 0;
+      padding-left: 24px;
+      text-indent: -24px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    /* NAVIGATION */
+
+    .navigation {
+      position: fixed;
+      z-index: 100;
+      top: 50%;
+      right: 17px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .navigation button {
+      width: 9px;
+      height: 9px;
+      padding: 0;
+      border: 1px solid var(--blue);
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .navigation button.active {
+      background: var(--blue);
+      box-shadow: 0 0 12px rgba(72, 166, 255, 0.65);
+      transform: scale(1.35);
+    }
+
+    .slide-counter {
+      position: fixed;
+      z-index: 100;
+      bottom: 22px;
+      right: 25px;
+      color: var(--muted);
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.1em;
+    }
+
+    .slide-counter strong {
+      color: var(--blue);
+    }
+
+    .keyboard-hint {
+      position: fixed;
+      z-index: 100;
+      bottom: 22px;
+      left: 25px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* RESPONSIVE DESIGN */
+
+    @media (max-width: 850px) {
+      .slide {
+        padding: 65px 35px 75px;
+        overflow-y: auto;
+      }
+
+      .split,
+      .cards,
+      .cards.three,
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .gallery.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .photo img {
+        height: 190px;
+      }
+
+      .concepts {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .navigation {
+        right: 7px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .slide {
+        padding: 62px 25px 75px;
+      }
+
+      .gallery,
+      .gallery.two {
+        grid-template-columns: 1fr;
+      }
+
+      .photo img {
+        height: 175px;
+      }
+
+      .eyebrow {
+        font-size: 10px;
+      }
+
+      .statement {
+        padding: 20px;
+      }
+
+      .point {
+        padding: 15px;
+      }
+
+      .keyboard-hint {
+        display: none;
+      }
+
+      .references p {
+        font-size: 11px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .deck {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav
+    class="navigation"
+    id="navigation"
+    aria-label="Presentation navigation">
+  </nav>
+
+  <div class="slide-counter" id="counter">
+    <strong>01</strong> / 15
+  </div>
+
+  <div class="keyboard-hint">
+    ← → / Space to navigate
+  </div>
+
+  <main class="deck" id="deck">
+
+    <!-- ==================================================
+         SLIDE 1 — TITLE
+    ================================================== -->
+
+    <section class="slide" data-title="Title">
+      <div class="container center">
+
+        <div class="eyebrow">
+          PLS 210 · Presentation #1 · Fall 2026
+        </div>
+
+        <h1>
+          Remembering the<br>
+          <span class="accent">First Presidents</span>
+        </h1>
+
+        <p class="intro">
+          Citizens’ Interpretations of Public Commemoration
+          in Kazakhstan and Uzbekistan
+        </p>
+
+        <div class="chips">
+          <span class="chip">Political memory</span>
+          <span class="chip">Public commemoration</span>
+          <span class="chip">Interpretivism</span>
+        </div>
+
+        <p class="small" style="margin-top: 34px;">
+          Elmira Bobkova
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         SLIDE 2 — OPENING PUZZLE
+    ================================================== -->
+
+    <section class="slide" data-title="The puzzle">
+      <div class="container">
+
+        <div class="eyebrow">
+          The research puzzle
+        </div>
+
+        <h2>
+          Public symbols are visible.<br>
+          <span class="accent">Their meanings are not.</span>
+        </h2>
+
+        <p class="intro">
+          Imagine walking past a monument or along a street
+          named after a former president.
+        </p>
+
+        <div class="statement">
+          Does that symbol represent national history,
+          a personal memory, an official message —
+          or something you barely notice?
+        </div>
+
+        <p class="description" style="margin-top: 24px;">
+          The existence of a commemorative symbol does not
+          tell us how citizens understand it.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         SLIDE 3 — KAZAKHSTAN PHOTOS 1–3
+    ================================================== -->
+
+    <section class="slide" data-title="Kazakhstan: public space">
+      <div class="container">
+
+        <div class="eyebrow">
+          Case 01 · Kazakhstan
+        </div>
+
+        <h2>
+          Commemoration in
+          <span class="accent">public space</span>
+        </h2>
+
+        <p class="description">
+          Presidential commemoration can appear in monuments
+          and the names of places people encounter in everyday life.
+        </p>
+
+        <div class="gallery">
+
+          <!-- PICTURE 1 -->
+
+          <figure class="photo">
+            <img
+              src="images/01-nazarbayev-seated-monument.jpg"
+              alt="Seated monument to Nursultan Nazarbayev"
+            >
+
+            <figcaption>
+              <strong>
+                <span class="photo-number">01</span>
+                Nazarbayev monument
+              </strong>
+
+              Public monument in Kazakhstan.
+            </figcaption>
+          </figure>
+
+          <!-- PICTURE 2 -->
+
+          <figure class="photo">
+            <img
+              src="images/02-nazarbayev-standing-monument.jpg"
+              alt="Standing monument to Nursultan Nazarbayev"
+            >
+
+            <figcaption>
+              <strong>
+                <span class="photo-number">02</span>
+                Nazarbayev monument
+              </strong>
+
+              Another example of presidential commemoration
+              through public sculpture.
+            </figcaption>
+          </figure>
+
+          <!-- PICTURE 3 -->
+
+          <figure class="photo">
+            <img
+              src="images/03-nursultan-airport.jpg"
+              alt="Airport building displaying the Nursultan Nazarbayev name"
+            >
+
+            <figcaption>
+              <strong>
+                <span class="photo-number">03</span>
+                Airport naming
+              </strong>
+
+              Commemoration through the name of
+              a public transport institution.
+            </figcaption>
+          </figure>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         SLIDE 4 — KAZAKHSTAN PHOTOS 4–6
+    ================================================== -->
+
+    <section class="slide" data-title="Kazakhstan: naming and change">
+      <div class="container">
+
+        <div class="eyebrow">
+          Case 01 · Kazakhstan
+        </div>
+
+        <h2>
+          Naming, institutions
+          <span class="accent">&amp; change</span>
+        </h2>
+
+        <div class="gallery">
+
+          <!-- PICTURE 4 -->
+
+          <figure class="photo contain">
+            <img
+              src="images/04-nu-nis-foundation-logo.jpg"
+              alt="NU and NIS Foundation logo"
+            >
+
+            <figcaption>
+              <strong>
+                <span class="photo-number">04</span>
+                Institutional context
+              </strong>
+
+              NU and NIS Foundation logo shown in
+              the source material.
+            </figcaption>
+          </figure>
+
+          <!-- PICTURE 5 -->
+
+          <figure class="photo">
+            <img
+              src="images/05-nursultan-mosque.jpg"
+              alt="Mosque shown in an article about the name Nursultan"
+            >
+
+            <figcaption>
+              <strong>
+                <span class="photo-number">05</span>
+                Mosque naming
+              </strong>
+
+              An example of commemoration through
+              the naming of a public landmark.
+            </figcaption>
+          </figure>
+
+          <!-- PICTURE 6 -->
+
+          <figure class="photo">
+            <img
+              src="images/06-nazarbayev-monument-removed.jpg"
+              alt="Image of a removed Nazarbayev monument"
+            >
+
+            <figcaption>
+              <strong>
+                <span class="photo-number">06</span>
+                Changing public symbols
+              </strong>
+
+              A visual example of how the presence of
+              commemorative symbols may change.
+            </figcaption>
+          </figure>
+
+        </div>
+
+        <p class="gallery-note">
+          These images illustrate different forms of
+          commemoration and change. They do not, by themselves,
+          establish what citizens think about those practices.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         SLIDE 5 — UZBEKISTAN PHOTOS 7–9
+    ================================================== -->
+
+    <section class="slide" data-title="Uzbekistan: monuments and memorials">
+      <div class="container">
+
+        <div class="eyebrow">
+          Case 02 · Uzbekistan
+        </div>
+
+        <h2>
+          Monuments
+          <span class="accent">&amp; memorial sites</span>
+        </h2>
+
+        <p class="description">
+          Public commemoration of Islam Karimov includes
+          monuments and dedicated memorial spaces.
+        </p>
+
+        <div class="gallery">
+
+          <!-- PICTURE 7 -->
+
+          <figure class="photo">
+            <img
+              src="images/07-karimov-standing-monument.jpg"
+              alt="Standing monument to Islam Karimov"
+            >
+
+            <figcaption>
+              <strong>
+                <span class="photo-number">07</span>
+                Karimov monument
+              </strong>
+
+              Public sculpture commemorating
+              Uzbekistan’s first president.
+            </figcaption>
+          </figure>
+
+          <!-- PICTURE 8 -->
+
+          <figure class="photo">
+            <img
+              src="images/08-karimov-monument-building.jpg"
+              alt="Karimov monument in front of a public building"
+            >
+
+            <figcaption>
+              <strong>
+                <span class="photo-number">08</span>
+                Monument and public space
+              </strong>
+
+              A commemorative monument situated
+              within a larger public setting.
+            </figcaption>
+          </figure>
+
+          <!-- PICTURE 9 -->
+
+          <figure class="photo">
+            <img
+              src="images/09-karimov-memorial.jpg"
+              alt="Memorial site dedicated to Islam Karimov"
+            >
+
+            <figcaption>
+              <strong>
+                <span class="photo-number">09</span>
+                Karimov memorial
+              </strong>
+
+              A dedicated site of remembrance.
+            </figcaption>
+          </figure>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         SLIDE 6 — UZBEKISTAN PHOTOS 10–11
+    ================================================== -->
+
+    <section class="slide" data-title="Uzbekistan: institutional naming">
+      <div class="container">
+
+        <div class="eyebrow">
+          Case 02 · Uzbekistan
+        </div>
+
+        <h2>
+          Commemoration through
+          <span class="accent">institutional names</span>
+        </h2>
+
+        <div class="gallery two">
+
+          <!-- PICTURE 10 -->
+
+          <figure class="photo">
+            <img
+              src="images/10-karimov-airport-sign.jpg"
+              alt="Tashkent International Airport sign bearing Islam Karimov's name"
+            >
+
+            <figcaption>
+              <strong>
+                <span class="photo-number">10</span>
+                Tashkent International Airport
+              </strong>
+
+              An example of Karimov’s name appearing
+              in everyday public infrastructure.
+            </figcaption>
+          </figure>
+
+          <!-- PICTURE 11 -->
+
+          <figure class="photo contain">
+            <img
+              src="images/11-karimov-university-logo.jpg"
+              alt="Tashkent State Technical University logo bearing Islam Karimov's name"
+            >
+
+            <figcaption>
+              <strong>
+                <span class="photo-number">11</span>
+                Tashkent State Technical University
+              </strong>
+
+              An example of commemoration through
+              the name of an educational institution.
+            </figcaption>
+          </figure>
+
+        </div>
+
+        <div class="statement">
+          The central question is not only how leaders
+          are commemorated, but how citizens interpret
+          these symbols when they encounter them.
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         SLIDE 7 — CASE SELECTION
+    ================================================== -->
+
+    <section class="slide" data-title="Case selection">
+      <div class="container">
+
+        <div class="eyebrow">
+          Comparative case selection
+        </div>
+
+        <h2>
+          Why Kazakhstan
+          <span class="accent">and Uzbekistan?</span>
+        </h2>
+
+        <div class="cards">
+
+          <div class="card">
+            <h3>Kazakhstan</h3>
+
+            <p>
+              Nazarbayev has been commemorated through
+              monuments, place names and institutions.
+              The capital was renamed Nur-Sultan in 2019
+              and restored to Astana in 2022.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Uzbekistan</h3>
+
+            <p>
+              Following Karimov’s death in 2016,
+              Uzbekistan established memorial sites
+              and annual remembrance practices,
+              alongside monuments and named institutions.
+            </p>
+          </div>
+
+        </div>
+
+        <p class="description" style="margin-top: 26px;">
+          Both countries offer examples of presidential
+          commemoration, while their commemorative
+          trajectories differ. Comparing them allows
+          me to explore citizens’ interpretations
+          across different political contexts and
+          formative experiences.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         SLIDE 8 — RESEARCH QUESTION
+    ================================================== -->
+
+    <section class="slide" data-title="Research question">
+      <div class="container center">
+
+        <div class="eyebrow">
+          Research question
+        </div>
+
+        <div class="research-question">
+          How do citizens in Kazakhstan and Uzbekistan
+          <span class="accent">make sense of</span>
+          the public commemoration of their first presidents,
+          Nursultan Nazarbayev and Islam Karimov?
+        </div>
+
+        <div class="chips">
+          <span class="chip">Monuments</span>
+          <span class="chip">Place names</span>
+          <span class="chip">Memorial sites</span>
+          <span class="chip">Official ceremonies</span>
+        </div>
+
+        <p class="small" style="margin-top: 30px;">
+          Population: citizens of Kazakhstan and Uzbekistan.<br>
+          Focus: their interpretations of public commemoration as of 2026.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         SLIDE 9 — INTERPRETIVISM
+    ================================================== -->
+
+    <section class="slide" data-title="Epistemological positioning">
+      <div class="container">
+
+        <div class="eyebrow">
+          Epistemological positioning
+        </div>
+
+        <h2>
+          Why <span class="accent">interpretivism?</span>
+        </h2>
+
+        <div class="cards">
+
+          <div class="card">
+            <h3>Meaning rather than measurement</h3>
+
+            <p>
+              I am interested in how people create
+              and negotiate the meanings of public
+              commemoration, rather than measuring
+              support or opposition to former presidents.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Participants’ own perspectives</h3>
+
+            <p>
+              I do not assume that commemorative
+              practices have one objective meaning.
+              Open-ended interviews allow participants
+              to explain their interpretations
+              through their own experiences.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="statement">
+          The same monument may carry different meanings
+          for different people — including little or
+          no personal significance.
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         SLIDE 10 — LITERATURE REVIEW
+    ================================================== -->
+
+    <section class="slide" data-title="Literature review">
+      <div class="container">
+
+        <div class="eyebrow">
+          Literature review
+        </div>
+
+        <h2>
+          Three strands of
+          <span class="accent">existing research</span>
+        </h2>
+
+        <div class="cards three">
+
+          <div class="card">
+            <h3>01 · State construction</h3>
+
+            <p>
+              Kosyak examines the institutional
+              development of commemoration policy
+              during Karimov’s presidency.
+            </p>
+
+            <div class="source">
+              Kosyak (2023)
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>02 · Public memory</h3>
+
+            <p>
+              Rees studies engagement with WWII
+              commemorative sites in Kazakhstan.
+              O’Shea examines national monuments
+              in Bishkek. Dadabaev compares official
+              narratives with citizens’ recollections
+              of the Soviet past.
+            </p>
+
+            <div class="source">
+              Rees (2024) · O’Shea (2023)<br>
+              Dadabaev (2021)
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>03 · Formative experiences</h3>
+
+            <p>
+              Schuman and Scott show the importance
+              of adolescence and early adulthood
+              in collective memories.
+            </p>
+
+            <div class="source">
+              Schuman &amp; Scott (1989)
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         SLIDE 11 — RESEARCH GAP
+    ================================================== -->
+
+    <section class="slide" data-title="Research gap">
+      <div class="container">
+
+        <div class="eyebrow">
+          Research gap &amp; contribution
+        </div>
+
+        <h2>
+          What remains
+          <span class="accent">less explored?</span>
+        </h2>
+
+        <p class="description">
+          Existing studies examine how states construct
+          commemoration and how citizens remember
+          historical events or interpret public monuments.
+        </p>
+
+        <div class="statement">
+          Less attention has been paid to how citizens
+          with different formative experiences interpret
+          the specific public commemoration of former
+          presidents in Kazakhstan and Uzbekistan.
+        </div>
+
+        <p class="description" style="margin-top: 25px;">
+          My contribution is an interpretivist comparison
+          of how citizens accept, reinterpret, contest
+          or attach little significance to commemorative
+          symbols associated with Nazarbayev and Karimov.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         SLIDE 12 — SENSITISING CONCEPTS
+    ================================================== -->
+
+    <section class="slide" data-title="Sensitising concepts">
+      <div class="container">
+
+        <div class="eyebrow">
+          Analytical lens
+        </div>
+
+        <h2>
+          Four <span class="accent">sensitising concepts</span>
+        </h2>
+
+        <div class="concepts">
+
+          <div class="concept">
+            <div class="concept-number">01</div>
+
+            <div>
+              <h3>Commemorative encounter</h3>
+
+              <p>
+                How participants encounter monuments,
+                renamed streets, memorial sites
+                or ceremonies in everyday life.
+              </p>
+            </div>
+          </div>
+
+          <div class="concept">
+            <div class="concept-number">02</div>
+
+            <div>
+              <h3>Meaning-making</h3>
+
+              <p>
+                What participants interpret a symbol
+                to mean, including meanings that
+                I did not anticipate.
+              </p>
+            </div>
+          </div>
+
+          <div class="concept">
+            <div class="concept-number">03</div>
+
+            <div>
+              <h3>Contestation &amp; negotiation</h3>
+
+              <p>
+                Acceptance, reinterpretation,
+                disregard or resistance to
+                an official commemorative meaning.
+              </p>
+            </div>
+          </div>
+
+          <div class="concept">
+            <div class="concept-number">04</div>
+
+            <div>
+              <h3>Formative political memory</h3>
+
+              <p>
+                How participants connect their
+                interpretations to the political
+                period in which their awareness developed.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <p class="small" style="margin-top: 23px;">
+          These concepts guide what I look for
+          during interviews; they do not predetermine
+          participants’ answers.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         SLIDE 13 — EXPECTATIONS
+    ================================================== -->
+
+    <section class="slide" data-title="Expectations">
+      <div class="container">
+
+        <div class="eyebrow">
+          Expectations
+        </div>
+
+        <h2>
+          What I expect —
+          <span class="accent">and could be wrong about</span>
+        </h2>
+
+        <div class="points">
+
+          <div class="point">
+            <span class="number">01</span>
+
+            <p>
+              Participants whose political awareness
+              developed in different periods may
+              interpret the same commemorative
+              practice differently.
+            </p>
+          </div>
+
+          <div class="point">
+            <span class="number">02</span>
+
+            <p>
+              Participants may understand commemoration
+              differently depending on whether they
+              perceive its public meaning as changing
+              or being reinforced.
+            </p>
+          </div>
+
+          <div class="point">
+            <span class="number">03</span>
+
+            <p>
+              Interpretations may vary across monuments,
+              place names and ceremonies.
+              A lack of interest is also
+              a meaningful finding.
+            </p>
+          </div>
+
+        </div>
+
+        <p class="small" style="margin-top: 24px;">
+          These expectations remain open to revision
+          as participants share their own accounts.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         SLIDE 14 — POSITIONALITY AND AI
+    ================================================== -->
+
+    <section class="slide" data-title="Positionality and AI">
+      <div class="container">
+
+        <div class="eyebrow">
+          Research transparency
+        </div>
+
+        <h2>
+          My position
+          <span class="accent">&amp; use of AI</span>
+        </h2>
+
+        <div class="cards">
+
+          <div class="card">
+            <h3>Researcher positionality</h3>
+
+            <p>
+              As a Kazakhstani political science
+              student, I may be more familiar with
+              Kazakhstan’s commemorative practices
+              than Uzbekistan’s.
+            </p>
+
+            <p style="margin-top: 12px;">
+              Participants may make assumptions
+              about my background or intentions.
+              I will use open-ended questions
+              and reflexive notes to consider
+              how my position shapes the interviews
+              and their interpretation.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>AI transparency</h3>
+
+            <p>
+              AI helped me refine the wording
+              of my research question, clarify
+              my interpretivist approach,
+              organize the literature and
+              improve the presentation’s structure.
+            </p>
+
+            <p style="margin-top: 12px;">
+              I critically reviewed the suggestions,
+              checked the sources and made
+              the final research decisions myself.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         SLIDE 15 — REFERENCES
+    ================================================== -->
+
+    <section class="slide" data-title="References">
+      <div class="container">
+
+        <div class="eyebrow">
+          References
+        </div>
+
+        <h2>
+          Literature <span class="accent">cited</span>
+        </h2>
+
+        <div class="references">
+
+          <p>
+            Dadabaev, T. (2021). Manipulating post-Soviet
+            nostalgia: Contrasting political narratives
+            and public recollections in Central Asia.
+            <em>International Journal of Asian Studies,
+            18</em>(1), 61–81.
+            <a href="https://doi.org/10.1017/S1479591420000443"
+               target="_blank" rel="noopener noreferrer">
+              https://doi.org/10.1017/S1479591420000443
+            </a>
+          </p>
+
+          <p>
+            Kosyak, N. A. (2023). Institutionalization
+            of commemoration policy in Uzbekistan
+            in the period of I. A. Karimov’s presidency
+            (1991–2016).
+            <em>Proceedings of the Komi Science Centre
+            of the Ural Division of the Russian Academy
+            of Sciences</em>, (1), 155–161.
+            <a href="https://doi.org/10.19110/1994-5655-2023-1-155-161"
+               target="_blank" rel="noopener noreferrer">
+              https://doi.org/10.19110/1994-5655-2023-1-155-161
+            </a>
+          </p>
+
+          <p>
+            O’Shea, M. (2023). The nation in bronze
+            and granite: Creating national monuments
+            in post-Soviet Bishkek.
+            <em>Nations and Nationalism</em>.
+            <a href="https://doi.org/10.1111/nana.12934"
+               target="_blank" rel="noopener noreferrer">
+              https://doi.org/10.1111/nana.12934
+            </a>
+          </p>
+
+          <p>
+            Rees, K. M. (2024). Public commemoration
+            and nationalizing the cult of World War II
+            in Kazakhstan. In
+            <em>Post-Colonial Approaches in Kazakhstan
+            and Beyond</em> (pp. 83–110). Springer.
+            <a href="https://doi.org/10.1007/978-981-99-8262-2_4"
+               target="_blank" rel="noopener noreferrer">
+              https://doi.org/10.1007/978-981-99-8262-2_4
+            </a>
+          </p>
+
+          <p>
+            Schuman, H., &amp; Scott, J. (1989).
+            Generations and collective memories.
+            <em>American Sociological Review,
+            54</em>(3), 359–381.
+            <a href="https://doi.org/10.2307/2095611"
+               target="_blank" rel="noopener noreferrer">
+              https://doi.org/10.2307/2095611
+            </a>
+          </p>
+
+        </div>
+
+        <p class="small" style="margin-top: 25px;">
+          Thank you · Questions welcome
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ====================================================
+       PRESENTATION NAVIGATION
+  ==================================================== -->
+
+  <script>
+    (function () {
+
+      const deck = document.getElementById("deck");
+
+      const slides = Array.from(
+        deck.querySelectorAll(".slide")
+      );
+
+      const navigation = document.getElementById("navigation");
+
+      const counter = document.getElementById("counter");
+
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      let currentSlide = 0;
+
+      function pad(number) {
+        return String(number).padStart(2, "0");
+      }
+
+      // Create navigation dots automatically.
+
+      slides.forEach((slide, index) => {
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+
+        button.setAttribute(
+          "aria-label",
+          `Go to slide ${index + 1}: ${slide.dataset.title}`
+        );
+
+        button.addEventListener("click", () => {
+          goToSlide(index);
+        });
+
+        navigation.appendChild(button);
+
+      });
+
+      const buttons = Array.from(
+        navigation.querySelectorAll("button")
+      );
+
+      function updateNavigation(index) {
+
+        currentSlide = index;
+
+        buttons.forEach((button, buttonIndex) => {
+
+          const isActive = buttonIndex === index;
+
+          button.classList.toggle("active", isActive);
+
+          if (isActive) {
+            button.setAttribute("aria-current", "true");
+          } else {
+            button.removeAttribute("aria-current");
+          }
+
+        });
+
+        counter.innerHTML =
+          `<strong>${pad(index + 1)}</strong> / ${pad(slides.length)}`;
+
+      }
+
+      function goToSlide(index) {
+
+        const safeIndex = Math.max(
+          0,
+          Math.min(index, slides.length - 1)
+        );
+
+        slides[safeIndex].scrollIntoView({
+          behavior: reducedMotion ? "auto" : "smooth",
+          block: "start"
+        });
+
+        updateNavigation(safeIndex);
+
+      }
+
+      // Keep navigation synchronized with scrolling.
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+
+          entries.forEach((entry) => {
+
+            if (
+              entry.isIntersecting &&
+              entry.intersectionRatio >= 0.55
+            ) {
+
+              const index = slides.indexOf(entry.target);
+
+              if (index !== -1) {
+                updateNavigation(index);
+              }
+
+            }
+
+          });
+
+        },
+        {
+          root: deck,
+          threshold: [0.55, 0.75]
+        }
+      );
+
+      slides.forEach((slide) => {
+        observer.observe(slide);
+      });
+
+      // Keyboard navigation.
+
+      window.addEventListener("keydown", (event) => {
+
+        if (
+          event.ctrlKey ||
+          event.metaKey ||
+          event.altKey
+        ) {
+          return;
+        }
+
+        const nextKeys = [
+          "ArrowRight",
+          "ArrowDown",
+          "PageDown",
+          " "
+        ];
+
+        const previousKeys = [
+          "ArrowLeft",
+          "ArrowUp",
+          "PageUp"
+        ];
+
+        if (nextKeys.includes(event.key)) {
+
+          event.preventDefault();
+
+          goToSlide(currentSlide + 1);
+
+        } else if (previousKeys.includes(event.key)) {
+
+          event.preventDefault();
+
+          goToSlide(currentSlide - 1);
+
+        } else if (event.key === "Home") {
+
+          event.preventDefault();
+
+          goToSlide(0);
+
+        } else if (event.key === "End") {
+
+          event.preventDefault();
+
+          goToSlide(slides.length - 1);
+
+        }
+
+      });
+
+      updateNavigation(0);
+
+    })();
+  </script>
+
+</body>
+</html>
